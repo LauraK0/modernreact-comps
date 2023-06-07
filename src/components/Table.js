@@ -1,5 +1,10 @@
+import { Fragment } from "react";
+
 function Table({ data, config, keyFn }) {
   const renderedHeaders = config.map((column) => {
+    if (column.header) {
+      return <Fragment key={column.label}>{column.header()}</Fragment>;
+    }
     return (
       <th className="p-3" key={column.label}>
         {column.label}
@@ -24,7 +29,9 @@ function Table({ data, config, keyFn }) {
 
   return (
     <table className="table-auto border-spacing-2">
-      <thead className="border-b-2">{renderedHeaders}</thead>
+      <thead className="border-b-2">
+        <tr className="border-b-2">{renderedHeaders}</tr>
+      </thead>
       <tbody>{renderedRows}</tbody>
     </table>
   );
